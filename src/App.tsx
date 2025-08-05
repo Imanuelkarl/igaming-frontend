@@ -16,7 +16,7 @@ const App: React.FC = () => {
       <Box minHeight="100vh" bgcolor="#f5f5f5">
         <Routes>
           <Route path="/auth" element={isAuthenticated ? <Navigate to="/" /> : <AuthPage />} />
-          <Route path="/" element={isAuthenticated ? <HomePage username='Emma' /> : <Navigate to="/auth" />} />
+          <Route path="/" element={isAuthenticated ? <HomePage/> : <Navigate to="/auth" />} />
           <Route path="/game" element={isAuthenticated ? <GamePage /> : <Navigate to="/auth" />} />
           <Route path="/leaderboard" element={isAuthenticated ? <LeaderboardPage /> : <Navigate to="/auth" />} />
         </Routes>

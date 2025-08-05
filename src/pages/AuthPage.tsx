@@ -26,7 +26,7 @@ export default function AuthPage() {
     alert(`${mode === 'login' ? 'Logged in' : 'Registered'} as ${username}`);
 
     // You can also store the user/token here if needed
-    localStorage.setItem('token', data.token);
+    localStorage.setItem('token', data.access_token);
     window.location.reload() // example navigation
 
     return data;
