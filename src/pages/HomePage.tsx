@@ -1,7 +1,5 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../api';
 
 // Simulated list of games
 const allGames = [
@@ -17,73 +15,16 @@ const allGames = [
 
 export default function HomePage({ username = 'Player' }) {
   const [showHowToPlay, setShowHowToPlay] = useState(false);
-  const [games,setGames] = useState<{ gameId:string, id: number; ganeName: string; users: any[];company:string;}[]>([]);
   const [page, setPage] = useState(1);
-  const [user,setUser] =useState<{id:number , username: string}>({id : 0,username:"none"});
   const itemsPerPage = 4;
   const navigate = useNavigate();
 
   const totalPages = Math.ceil(allGames.length / itemsPerPage);
-  const currentGames = games.slice((page - 1) * itemsPerPage, page * itemsPerPage);
-
-
-  const token = window.localStorage.getItem("token");
+  const currentGames = allGames.slice((page - 1) * itemsPerPage, page * itemsPerPage);
   
-  useEffect(() => {
-    if (!token) return;
-
-    const fetchUser = async () => {
-      try {
-        const response = await api.get('/users/me');
-        if (!response.data) {
-          
-          return;
-        }
-        setUser(response.data);
-      } catch (error) {
-        console.error('User fetch error:', error);
-        localStorage.removeItem('token');
-        window.location.reload();
-      }
-    };
-
-    fetchUser();
-  }, [token]);
-
-  // Fetch active games
-  useEffect(() => {
-    if (!token) return;
-
-    const fetchGames = async () => {
-      try {
-        const response = await api.get('/game-session/active');
-        setGames(response.data);
-      } catch (error) {
-        console.error('Error fetching games:', error);
-        alert('Failed to fetch games');
-      }
-    };
-
-    fetchGames();
-  }, [token]);
-  const handleCreateGame = async () => {
-  try {
-    const response = await axios.post('http://localhost:3000/game-session/create', {
-      host: user.username ,
-    });
-
-    const gameData = response.data;
-
-    // Store game session in localStorage or your global store
-    localStorage.setItem('currentGame', JSON.stringify(gameData));
-
-    // Navigate to game page
-    navigate('/game');
-  } catch (error: any) {
-    console.error('Failed to create game:', error);
-    alert('Error creating game session');
-  }
-};
+  const handleCreateGame = () => {
+    navigate("/game")
+  };
   const handleJoin = (gameId: number) => alert(`Joining Game ID: ${gameId}`);
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -126,8 +67,8 @@ export default function HomePage({ username = 'Player' }) {
               className="flex justify-between items-center bg-gray-800 p-4 rounded-xl"
             >
               <div>
-                <p className="text-lg font-semibold">{`Room`+game.id}</p>
-                <p className="text-sm text-gray-400">{game.users.length} / 10 Players</p>
+                <p className="text-lg font-semibold">{game.name}</p>
+                <p className="text-sm text-gray-400">{game.players} / 10 Players</p>
               </div>
               <button
                 onClick={() => handleJoin(game.id)}

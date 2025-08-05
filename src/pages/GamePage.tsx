@@ -6,12 +6,8 @@ const mockPlayers = [
   { id: 2, username: 'Lara' },
   { id: 3, username: 'John' },
   { id: 4, username: 'Ada' },
-  { id: 5, username: 'Lara' },
-  { id: 6, username: 'John' },
-  { id: 7, username: 'Ada' },
-  { id: 8, username: 'Lara' },
-  { id: 9, username: 'John' },
-  { id: 10, username: 'Ada' }
+  { id: 5, username: 'Jane' },
+ 
 ];
 
 export default function GamePage({ currentUser = 'Emmanuel' }) {
