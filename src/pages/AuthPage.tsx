@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import api from '../api';
 //import { useNavigate } from 'react-router-dom';
 
 export default function AuthPage() {
@@ -9,20 +10,14 @@ export default function AuthPage() {
   const handleSubmit = async (e : any) => {
     e.preventDefault();
   try {
-    const response = await fetch(`http://localhost:3000/auth/${mode}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username }),
-    });
+    const response = await api.post(`/auth/${mode}`, { username });
 
-    if (!response.ok) {
-      const errorData = await response.json();
+    if (!response.data) {
+      const errorData = await response.data;
       throw new Error(errorData.message || 'Authentication failed');
     }
 
-    const data = await response.json();
+    const data = await response.data;
     alert(`${mode === 'login' ? 'Logged in' : 'Registered'} as ${username}`);
 
     // You can also store the user/token here if needed
