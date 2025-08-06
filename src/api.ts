@@ -4,11 +4,11 @@ import axios from 'axios';
 const getBackendUrl = () => {
   const frontendHost = window.location.host;
 
-  if (frontendHost.includes("localhost:5177")) {
-    return "http://claims.intelsoftgroup.com:3000"; // Local backend
+  if (frontendHost.includes("localhost:5173")) {
+    return "http://localhost:3000"; // Local backend
   }
   else{
-    return "http://claims.intelsoftgroup.com:3000";
+    return "https://igaming-backend-2.onrender.com";
   }
 
   // Use the same origin as frontend when deployed
