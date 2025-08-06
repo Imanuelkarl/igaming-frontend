@@ -1,8 +1,22 @@
 // src/api.ts
 import axios from 'axios';
 
+const getBackendUrl = () => {
+  const frontendHost = window.location.host;
+
+  if (frontendHost.includes("localhost:5173")) {
+    return "http://localhost:3000"; // Local backend
+  }
+  else{
+    return "http://claims.intelsoftgroup.com:3000";
+  }
+
+  // Use the same origin as frontend when deployed
+  
+};
+
 const api = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: getBackendUrl(),
 });
 
 api.interceptors.request.use((config) => {

@@ -55,7 +55,7 @@ export default function HomePage() {
       }
 
       try {
-        const response = await api.get('http://localhost:3000/users/me', {
+        const response = await api.get('/users/me', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
